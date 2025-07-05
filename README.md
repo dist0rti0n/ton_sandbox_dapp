@@ -1,4 +1,4 @@
-ton_sandbox_dapp
+ton_sandbox_dapp\
 Basic DApp on TON Blockchain testnet
 
 Features:
