@@ -2,17 +2,17 @@ import './App.css'
 import { TonConnectButton } from '@tonconnect/ui-react'
 import { useMainContract } from './hooks/useMainContract'
 import { useTonConnect } from './hooks/useTonConnect';
-import { fromNano, toNano } from '@ton/ton';
-import React, { useState } from 'react';
+import { fromNano } from '@ton/ton';
+import { useState } from 'react';
 
 // contract: kQAaH3_LwciIXtdeP6aO_26CBqIn9oMcxpx1iWGJ8C22NVbh
 
 function App() {
 
   const { 
-    owner,
+    // owner,
     counter,
-    latestSender, 
+    // latestSender, 
     contractAddress, 
     contractBalance,
     sendIncrement,
