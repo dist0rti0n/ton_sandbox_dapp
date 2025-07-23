@@ -39,7 +39,6 @@ function App() {
       </div>
       <div>
         <div className='Card'>
-          <b>Platform: {WebApp.platform} {WebApp.version}</b>
           <b>Contract Address</b>
           <div className='Hint'>{contractAddress/*?.slice(0, 30) + "..."*/}</div>
           <b>Contract Balance</b>
@@ -54,11 +53,12 @@ function App() {
         </div>
 
         <button
-                onClick={() => {
+                onClick={e => {
+                  e.currentTarget.blur();
                   showAlert();
                 }}
                 className="action-button"
-                style={{ cursor: 'pointer', marginLeft: 8 }}
+                style={{ cursor: 'pointer'}}
               >
                 Show alert
               </button>
@@ -76,108 +76,114 @@ function App() {
           }}
         >
           {connected && (
-            <div>
-              <input
-                type="number"
-                min="0"
-                step="any"
-                inputMode="decimal"
-                pattern="[0-9]*[.,]?[0-9]*"
-                placeholder="Increment"
-                value={incrementAmount}
-                onChange={e => {
-                  const val = e.target.value.replace(/[^0-9.,]/g, '');
-                  const parts = val.split(/[.,]/);
-                  let filtered = parts[0];
-                  if (parts.length > 1) {
-                    filtered += '.' + parts.slice(1).join('');
-                  }
-                  setIncrementAmount(filtered);
-                }}
-                className="pretty-input"
-              />
-              <button
-                onClick={() => {
-                  if (incrementAmount && !isNaN(Number(incrementAmount))) {
-                    sendIncrement(parseInt(incrementAmount));
-                  }
-                }}
-                className="action-button"
-                style={{ cursor: 'pointer', marginLeft: 8 }}
-              >
-                Increment counter
-              </button>
-            </div>
-          )}
-          {connected && (
-            <div>
-              <input
-                type="number"
-                min="0"
-                step="any"
-                inputMode="decimal"
-                pattern="[0-9]*[.,]?[0-9]*"
-                placeholder="TON"
-                value={depositAmount}
-                onChange={e => {
-                  const val = e.target.value.replace(/[^0-9.,]/g, '');
-                  const parts = val.split(/[.,]/);
-                  let filtered = parts[0];
-                  if (parts.length > 1) {
-                    filtered += '.' + parts.slice(1).join('');
-                  }
-                  setDepositAmount(filtered);
-                }}
-                className="pretty-input"
-              />
-              <button
-                onClick={() => {
-                  if (depositAmount && !isNaN(Number(depositAmount))) {
-                    sendDeposit(depositAmount.toString());
-                  }
-                }}
-                className="action-button"
-                style={{ cursor: 'pointer', marginLeft: 8 }}
-              >
-                Request deposit
-              </button>
-            </div>
-          )}
-          {connected && (
-            <div>
-              <input
-                type="number"
-                min="0"
-                step="any"
-                inputMode="decimal"
-                pattern="[0-9]*[.,]?[0-9]*"
-                placeholder="TON"
-                value={withdrawAmount}
-                onChange={e => {
-                  const val = e.target.value.replace(/[^0-9.,]/g, '');
-                  const parts = val.split(/[.,]/);
-                  let filtered = parts[0];
-                  if (parts.length > 1) {
-                    filtered += '.' + parts.slice(1).join('');
-                  }
-                  setWithdrawAmount(filtered);
-                }}
-                className="pretty-input"
-              />
-              <button
-                onClick={() => {
-                  if (withdrawAmount && !isNaN(Number(withdrawAmount))) {
-                    sendWithdrawalRequst(withdrawAmount.toString());
-                  }
-                }}
-                className="action-button"
-                style={{ cursor: 'pointer', marginLeft: 8 }}
-              >
-                Request withdrawal
-              </button>
-            </div>
-          )}
+  <div className="action-row">
+    <input
+      type="number"
+      min="0"
+      step="any"
+      inputMode="decimal"
+      pattern="[0-9]*[.,]?[0-9]*"
+      placeholder="Increment"
+      value={incrementAmount}
+      onChange={e => {
+        const val = e.target.value.replace(/[^0-9.,]/g, '');
+        const parts = val.split(/[.,]/);
+        let filtered = parts[0];
+        if (parts.length > 1) {
+          filtered += '.' + parts.slice(1).join('');
+        }
+        setIncrementAmount(filtered);
+      }}
+      className="pretty-input"
+    />
+    <button
+      onClick={e => {
+        e.currentTarget.blur();
+        if (incrementAmount && !isNaN(Number(incrementAmount))) {
+          sendIncrement(parseInt(incrementAmount));
+        }
+      }}
+      className="action-button"
+      style={{ cursor: 'pointer' }}
+    >
+      Increment counter
+    </button>
+  </div>
+)}
+{connected && (
+  <div className="action-row">
+    <input
+      type="number"
+      min="0"
+      step="any"
+      inputMode="decimal"
+      pattern="[0-9]*[.,]?[0-9]*"
+      placeholder="TON"
+      value={depositAmount}
+      onChange={e => {
+        const val = e.target.value.replace(/[^0-9.,]/g, '');
+        const parts = val.split(/[.,]/);
+        let filtered = parts[0];
+        if (parts.length > 1) {
+          filtered += '.' + parts.slice(1).join('');
+        }
+        setDepositAmount(filtered);
+      }}
+      className="pretty-input"
+    />
+    <button
+      onClick={e => {
+        e.currentTarget.blur();
+        if (depositAmount && !isNaN(Number(depositAmount))) {
+          sendDeposit(depositAmount.toString());
+        }
+      }}
+      className="action-button"
+      style={{ cursor: 'pointer' }}
+    >
+      Request deposit
+    </button>
+  </div>
+)}
+{connected && (
+  <div className="action-row">
+    <input
+      type="number"
+      min="0"
+      step="any"
+      inputMode="decimal"
+      pattern="[0-9]*[.,]?[0-9]*"
+      placeholder="TON"
+      value={withdrawAmount}
+      onChange={e => {
+        const val = e.target.value.replace(/[^0-9.,]/g, '');
+        const parts = val.split(/[.,]/);
+        let filtered = parts[0];
+        if (parts.length > 1) {
+          filtered += '.' + parts.slice(1).join('');
+        }
+        setWithdrawAmount(filtered);
+      }}
+      className="pretty-input"
+    />
+    <button
+      onClick={e => {
+        e.currentTarget.blur();
+        if (withdrawAmount && !isNaN(Number(withdrawAmount))) {
+          sendWithdrawalRequst(withdrawAmount.toString());
+        }
+      }}
+      className="action-button"
+      style={{ cursor: 'pointer' }}
+    >
+      Request withdrawal
+    </button>
+  </div>
+)}
         </div>
+      </div>
+      <div className="platform-bottom-right">
+        Platform: {WebApp.platform} {WebApp.version}
       </div>
     </div>
   )
