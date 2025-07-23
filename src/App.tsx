@@ -12,6 +12,10 @@ import WebApp from '@twa-dev/sdk';
 
 function App() {
 
+  if (!WebApp.isExpanded) {
+    WebApp.expand();
+  }
+
   const { 
     // owner,
     counter,
