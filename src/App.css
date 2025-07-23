@@ -149,6 +149,13 @@ body {
     min-width: 120px;
     margin-right: 0;  /* Remove right margin for stacking */
   }
+  .info-box {
+    padding: 10px 2vw;
+    margin-bottom: 10px;
+    max-width: none;
+    width: 100vw;
+    box-sizing: border-box;
+  }
 }
 
 .info-box {
