@@ -4,6 +4,9 @@ import { useMainContract } from './hooks/useMainContract'
 import { useTonConnect } from './hooks/useTonConnect';
 import { fromNano } from '@ton/ton';
 import { useState } from 'react';
+import WebApp from '@twa-dev/sdk';
+
+
 
 // contract: kQAaH3_LwciIXtdeP6aO_26CBqIn9oMcxpx1iWGJ8C22NVbh
 
@@ -25,6 +28,10 @@ function App() {
   const [depositAmount, setDepositAmount] = useState('');
   const [withdrawAmount, setWithdrawAmount] = useState('');
 
+  const showAlert = () => {
+    WebApp.showAlert("Hey there!");
+  };
+
   return (
     <div className="App">
       <div className="top-right">
@@ -44,6 +51,18 @@ function App() {
           <b>Counter Value</b>
           <div>{counter ?? "Loading..."}</div>
         </div>
+
+        <button
+                onClick={() => {
+                  showAlert();
+                }}
+                className="action-button"
+                style={{ cursor: 'pointer', marginLeft: 8 }}
+              >
+                Show alert
+              </button>
+
+        <br/>
 
         <div
           style={{
