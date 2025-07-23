@@ -113,8 +113,8 @@ body {
 
 .platform-bottom-right {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: 10px;
+  bottom: 10px;
   background: rgba(20, 33, 61, 0.95);
   color: #fff;
   padding: 4px 10px;
@@ -155,6 +155,23 @@ body {
     max-width: none;
     width: 100vw;
     box-sizing: border-box;
+  }
+
+  .App {
+    position: relative;
+  }
+
+  .platform-bottom-right {
+    position: absolute;
+    right: -20px;
+    bottom: -50px;
+    background: rgba(20, 33, 61, 0.95);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    z-index: 100;
+    box-shadow: 0 2px 8px #0002;
   }
 }
 

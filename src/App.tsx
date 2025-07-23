@@ -235,8 +235,8 @@ function App() {
         </div>
       </div>
       <div className="platform-bottom-right">
-        Platform: {WebApp.platform} {WebApp.version}
-      </div>
+  Platform: {WebApp.platform} {WebApp.version}
+</div>
     </div>
   )
 }
