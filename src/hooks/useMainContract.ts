@@ -19,7 +19,7 @@ export function useMainContract() {
     counter: number;
     latestSender: Address;
   }>();
-  const [balance, setBalance] = useState<null | number>(0);
+  const [balance, setBalance] = useState<null | number>(null);
 
   const mainContract = useAsyncInitialize(async () => {
     if (!client) return;

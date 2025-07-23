@@ -3,7 +3,7 @@ import { TonConnectButton } from '@tonconnect/ui-react'
 import { useMainContract } from './hooks/useMainContract'
 import { useTonConnect } from './hooks/useTonConnect';
 import { fromNano } from '@ton/ton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
 
 
@@ -27,9 +27,25 @@ function App() {
   const [incrementAmount, setIncrementAmount] = useState('');
   const [depositAmount, setDepositAmount] = useState('');
   const [withdrawAmount, setWithdrawAmount] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [lastIncrementAmount, setLastIncrementAmount] = useState('');
+
+  useEffect(() => {
+    if (counter !== undefined && counter !== null) {
+      setLastIncrementAmount(counter.toString());
+    }
+  }, [counter]);
 
   const showAlert = () => {
     WebApp.showAlert("Hey there!");
+  };
+
+  const handleCopyAddress = () => {
+    if (contractAddress) {
+      navigator.clipboard.writeText(contractAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+    }
   };
 
   return (
@@ -39,17 +55,53 @@ function App() {
       </div>
       <div>
         <div className='Card'>
-          <b>Contract Address</b>
-          <div className='Hint'>{contractAddress/*?.slice(0, 30) + "..."*/}</div>
-          <b>Contract Balance</b>
-          {contractBalance && (
-          <div className='Hint'>{fromNano(contractBalance)}</div>
-          )}
-        </div>
-
-        <div className='Card'>
-          <b>Counter Value</b>
-          <div>{counter ?? "Loading..."}</div>
+          <div className="info-box">
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
+    <b>Contract Address</b>
+    {copied && (
+      <span style={{ color: "#7ee787", fontSize: "0.7em" }}>
+        Copied!
+      </span>
+    )}
+  </div>
+  <div
+    className="Hint monospace"
+    style={{ cursor: 'pointer', userSelect: 'none' }}
+    onClick={handleCopyAddress}
+    title="Click to copy"
+  >
+    {contractAddress}
+  </div>
+</div>
+<div className="info-box">
+  <b>Contract Balance</b>
+  <div className="Hint monospace" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    {contractBalance === undefined || contractBalance === null ? (
+      <span className="loader" />
+    ) : (
+      fromNano(contractBalance)
+    )}
+  </div>
+</div>
+<div className="info-box">
+  <b>Counter Value</b>
+  <div
+    className="Hint monospace"
+    style={{ 
+      display: 'flex',
+       alignItems: 'center',
+      gap: lastIncrementAmount ? '4px' : '0px' }}
+  >
+    {counter !== undefined && counter !== null ? (
+      counter
+    ) : (
+      <>
+        <span>{lastIncrementAmount}</span>
+        <span className="loader" />
+      </>
+    )}
+  </div>
+</div>
         </div>
 
         <button
